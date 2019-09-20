@@ -9,6 +9,10 @@
   },
   "extends": "eslint:recommended",
   "rules": {
+    "comma-dangle": [
+      "error",
+      "never"
+    ],
     "indent": [
       "error",
       2
@@ -23,7 +27,7 @@
     ],
     "semi": [
       "error",
-      "always"
+      "never"
     ]
   }
 }

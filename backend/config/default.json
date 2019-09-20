@@ -1,9 +1,11 @@
 {
-  "host": "localhost",
-  "port": 3030,
-  "public": "../public/",
+  "host": "api.vtc.test",
   "paginate": {
     "default": 10,
     "max": 50
-  }
+  },
+  "port": 3030,
+  "public": "../public/",
+  "mongodb": "mongodb://localhost:27017/valley_tech_con_2019",
+  "ngrok-token": "6QGcD68afRKhPB5cVMExU_5NLmp1gLyVffL7MLPaXa1"
 }
