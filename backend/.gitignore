@@ -112,3 +112,5 @@ data/
 
 # Certs
 *.pem
+# Don't share ngrok token
+config/
