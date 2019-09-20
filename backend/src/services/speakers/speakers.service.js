@@ -1,7 +1,7 @@
-// Initializes the `events` service on path `/events`
-const { Events } = require('./events.class')
-const createModel = require('../../models/events.model')
-const hooks = require('./events.hooks')
+// Initializes the `speakers` service on path `/speakers`
+const { Speakers } = require('./speakers.class')
+const createModel = require('../../models/speakers.model')
+const hooks = require('./speakers.hooks')
 
 module.exports = function (app) {
   const Model = createModel(app)
@@ -13,10 +13,10 @@ module.exports = function (app) {
   }
 
   // Initialize our service with any options it requires
-  app.use('/events', new Events(options, app))
+  app.use('/speakers', new Speakers(options, app))
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('events')
+  const service = app.service('speakers')
 
   service.hooks(hooks)
 }
