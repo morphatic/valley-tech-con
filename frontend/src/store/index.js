@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import localforage from 'localforage'
 import setupPersistence from '@/store/persistence'
 import common from '@/store/modules/common'
+import { api as appAPI, FeathersVuex, models } from '@/services/api'
 
 // register Vue plugins
 Vue.use(Vuex)

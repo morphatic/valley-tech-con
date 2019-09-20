@@ -15,7 +15,7 @@ const TOGGLE_NAV_DRAWER_OPEN = 'TOGGLE_NAV_DRAWER_OPEN'
 const initialState = {
   destination: null,
   navDrawerIsMini: false,
-  navDrawerIsOpen: true,
+  navDrawerIsOpen: true
 }
 
 const state = { ...initialState }

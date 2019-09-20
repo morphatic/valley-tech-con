@@ -50,10 +50,10 @@
       <v-toolbar-title class="headline text-uppercase hidden-md-and-up">
         VTC.19
       </v-toolbar-title>
-      <v-spacer></v-spacer>
+      <v-spacer />
     </v-app-bar>
     <v-content>
-      <router-view/>
+      <router-view />
     </v-content>
     <v-footer
       app
@@ -62,7 +62,7 @@
       inset
     >
       <span class="white--text mx-2">
-        &copy; {{ copy }} Harrisonburg Economic Development, All Rights Reserved | 
+        &copy; {{ copy }} Harrisonburg Economic Development, All Rights Reserved |
         <a href="https://github.com/morphatic/valley-tech-con">Demo App</a>
         built by <a href="https://morphatic.com">Morphatic</a>
       </span>
