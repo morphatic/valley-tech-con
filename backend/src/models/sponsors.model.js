@@ -16,7 +16,7 @@ module.exports = function (app) {
     description: {
       type: String
     },
-    photo: {
+    logo: {
       type: String
     },
     level: {
@@ -26,9 +26,6 @@ module.exports = function (app) {
     isVendor: {
       type: Boolean,
       default: false
-    },
-    org_url: {
-      type: String
     },
     events: [{
       type: Schema.Types.ObjectId,

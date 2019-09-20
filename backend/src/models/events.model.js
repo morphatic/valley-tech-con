@@ -11,8 +11,7 @@ module.exports = function (app) {
       required: true
     },
     description: {
-      type: String,
-      required: true
+      type: String
     },
     hashtag: {
       type: String
@@ -25,9 +24,11 @@ module.exports = function (app) {
       type: Date,
       required: true
     },
+    section: {
+      type: String
+    },
     room: {
-      type: String,
-      required: true
+      type: String
     },
     speakers: [{
       type: Schema.Types.ObjectId,
