@@ -18,9 +18,6 @@ module.exports = function (app) {
     text: {
       type: String
     },
-    name: {
-      type: String
-    },
     email: {
       type: String,
       validator: v => /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(v)
@@ -28,6 +25,9 @@ module.exports = function (app) {
   }, {
     timestamps: true
   })
+
+  // create a unique index to prevent people from voting multiple times
+  reviews.index({ event: 1, email: 1 }, { unique: true })
 
   // This is necessary to avoid model compilation errors in watch mode
   // see https://github.com/Automattic/mongoose/issues/1251
