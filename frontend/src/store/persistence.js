@@ -38,7 +38,9 @@ const setupPersistence = ({
     store.commit('RESTORE_MUTATION', savedState)
     // subscribe to state changes that should be persisted
     store.subscribe((mutation, state) => {
-      // after each mutation, update localforage
+      // after each mutation, serialize the state
+      state = JSON.parse(JSON.stringify(state))
+      // and update localforage
       queue.enqueue(storage.setItem(key, state))
     })
   }
@@ -47,17 +49,17 @@ const setupPersistence = ({
     const mergedState = { ...state, ...savedState }
     // for each key, i.e. module
     for (const modelName of Object.keys(mergedState)) {
-      if (modelName === 'auth' && !!mergedState.auth.user) {
-        try {
-          // get the User model constructor
-          const User = feathersModels.users
-          // if the logged-in user instance is not a User
-          if (!(mergedState.auth.user instanceof User)) {
+      // try to get the model name
+      const Model = feathersModels[modelName]
+      // if it is a Feathers model
+      if (Model !== undefined) {
+        // for each keyed item
+        for (const key in mergedState[modelName].keyedById) {
+          // if the item is not an instance of the Model
+          if (!(mergedState[modelName].keyedById[key] instanceof Model)) {
             // convert it into one
-            mergedState.auth.user = new User(mergedState.auth.user)
+            mergedState[modelName].keyedById[key] = new Model(mergedState[modelName].keyedById[key])
           }
-        } catch (error) {
-          console.log('Could not restore authenticated user: ', error.message)
         }
       }
       // and re-add the item to the store

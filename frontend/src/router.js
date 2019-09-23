@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import { store } from '@/store/'
 import Home from '@/views/Home.vue'
+import TheAgendaPage from '@/components/TheAgendaPage'
+import { EventBus } from '@/bus'
 
 Vue.use(Router)
 
@@ -21,9 +23,21 @@ const router = new Router({
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
+    },
+    {
+      path: '/agenda',
+      name: 'agenda',
+      component: TheAgendaPage
     }
   ]
 })
+
+const loadItems = (model) => {
+  // get the list of ids already loaded in the store
+  const ids = store.state[model].ids
+  // and then load any objects that haven't been loaded already
+  return store.dispatch(`${model}/find`, { query: { $limit: 50, _id: { $nin: ids } } })
+}
 
 /**
  * This route hook forces the RESTORE_MUTATION to be the first one to
@@ -39,6 +53,12 @@ const waitForStorageToBeReady = async (to, from, next) => {
   if (!store._vm.$root.$data['storageReady']) {
     // wait for that to happen
     store._vm.$root.$on('storageReady', async () => {
+      // for each of our key models
+      Promise.all(
+        ['speakers', 'sponsors', 'events', 'reviews'].map(loadItems)
+      ).then(() => {
+        EventBus.$emit('itemsLoaded')
+      })
       // then continue...
       next()
     })

@@ -37,8 +37,8 @@ const handleRestore = () => {
 }
 
 export const store = new Vuex.Store({
-  strict: false,
-  // strict: process.env.NODE_ENV !== 'production',
+  // strict: false,
+  strict: process.env.NODE_ENV !== 'production',
   modules: {
     common
   },

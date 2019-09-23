@@ -20,15 +20,15 @@ module.exports = {
       }
     }
   },
-  pwa: {
-    name: 'Valley Tech Con 2019',
-    themeColor: '#39b54a',
-    msTileColor: '#ffffff',
-    workboxPluginMode: 'InjectManifest',
-    workboxOptions: {
-      swSrc: 'src/service-worker.js'
-    }
-  },
+  // pwa: {
+  //   name: 'Valley Tech Con 2019',
+  //   themeColor: '#39b54a',
+  //   msTileColor: '#ffffff',
+  //   workboxPluginMode: 'InjectManifest',
+  //   workboxOptions: {
+  //     swSrc: 'src/service-worker.js'
+  //   }
+  // },
   transpileDependencies: [
     '@feathersjs',
     'debug',

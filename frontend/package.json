@@ -4,9 +4,10 @@
   "private": true,
   "description": "A PWA to demo the \"offline first\" approach to app development",
   "scripts": {
-    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "serve": "vue-cli-service serve",
+    "serve:ngrok": "NODE_ENV=ngrok vue-cli-service serve --mode ngrok",
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
@@ -15,7 +16,7 @@
     "@feathersjs/socketio-client": "^4.3.2",
     "core-js": "^2.6.5",
     "date-fns": "^2.2.1",
-    "feathers-vuex": "^1.7.0",
+    "feathers-vuex": "2.0.0-pre.77",
     "localforage": "^1.7.3",
     "register-service-worker": "^1.6.2",
     "socket.io-client": "^2.2.0",
@@ -45,6 +46,7 @@
     "vue-analytics": "^5.17.2",
     "vue-cli-plugin-vuetify": "^0.6.3",
     "vue-template-compiler": "^2.6.10",
-    "vuetify-loader": "^1.2.2"
+    "vuetify-loader": "^1.2.2",
+    "worker-loader": "^2.0.0"
   }
 }

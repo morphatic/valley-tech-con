@@ -16,7 +16,10 @@ export default new Vuetify({
         error: '#FF5252',
         info: '#2196F3',
         success: '#4CAF50',
-        warning: '#FFC107'
+        warning: '#FFC107',
+        gybt: '#39b54a',
+        biot: '#16d0ff',
+        ttfp: '#e02b20'
       }
     }
   },
