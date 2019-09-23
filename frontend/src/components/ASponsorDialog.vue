@@ -9,10 +9,15 @@
         v-bind="attrs"
         v-on="on"
       >
-        <v-img
-          :alt="`${sponsor.name}`"
-          :src="sponsor.logo"
-        />
+        <v-list-item-content>
+          <v-list-item-subtitle>Sponsored by:</v-list-item-subtitle>
+          <v-list-item-subtitle>
+            <v-img
+              :alt="`${sponsor.name}`"
+              :src="sponsor.logo"
+            />
+          </v-list-item-subtitle>
+        </v-list-item-content>
       </v-list-item>
     </template>
     <v-card>
@@ -85,7 +90,7 @@
   export default {
     name: 'ASponsorDialog',
     components: {
-      AnEventDialog
+      'an-event-dialog': AnEventDialog
     },
     props: {
       sponsor: {

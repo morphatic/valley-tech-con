@@ -44,21 +44,29 @@
       <v-app-bar-nav-icon
         @click.stop="toggleNavDrawerOpen"
       />
-      <img
-        class="mr-2"
-        height="38"
-        src="@/assets/logo.svg"
-        width="38"
-      >
-      <v-toolbar-title class="headline text-uppercase hidden-sm-and-down">
+      <v-toolbar-title class="white--text text-uppercase hidden-sm-and-down" style="font-size:2rem">
         <span class="font-weight-light">Valley</span>
-        <span>Tech</span>
+        <span class="font-weight-black">Tech</span>
         <span class="font-weight-light">Con.19</span>
       </v-toolbar-title>
       <v-toolbar-title class="headline text-uppercase hidden-md-and-up">
-        VTC.19
+        <img
+          alt="Valley Tech Con 2019"
+          class="mt-2"
+          height="32"
+          src="@/assets/vtc-logo.svg"
+        >
       </v-toolbar-title>
       <v-spacer />
+      <v-btn
+        v-if="$route.path === '/agenda'"
+        icon
+        @click="bus.$emit('goToNow')"
+      >
+        <v-icon color="white">
+          {{ icons.now }}
+        </v-icon>
+      </v-btn>
     </v-app-bar>
     <v-content>
       <v-container class="pr-6">
@@ -70,6 +78,7 @@
       class="primary"
       fixed
       inset
+      style="z-index:20;"
     >
       <span class="white--text mx-2">
         &copy; {{ copy }} Harrisonburg Economic Development, All Rights Reserved |
@@ -102,7 +111,8 @@
     mdiChevronRight,
     mdiHome,
     mdiInformation,
-    mdiTimelineTextOutline
+    mdiTimelineTextOutline,
+    mdiUpdate
   } from '@mdi/js'
   import { mapActions, mapGetters } from 'vuex'
   import AMenuItem from '@/components/AMenuItem'
@@ -113,11 +123,13 @@
       AMenuItem
     },
     data: () => ({
+      bus: EventBus,
       icons: {
         about: mdiInformation,
         agenda: mdiTimelineTextOutline,
         home: mdiHome,
         left: mdiChevronLeft,
+        now: mdiUpdate,
         right: mdiChevronRight
       },
       loading: true
@@ -130,7 +142,7 @@
       }
     },
     created () {
-      EventBus.$on('itemsLoaded', function () {
+      this.bus.$on('itemsLoaded', function () {
         this.loading = false
       }.bind(this))
     },

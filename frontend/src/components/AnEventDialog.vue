@@ -57,7 +57,7 @@
               >
                 {{ event.track }}
               </span><br>
-              <the-reviews-widget :ratings="reviews.map(r => r.rating)" />
+              <the-reviews-widget :event="event" />
             </div>
             <v-list v-if="event.speakers && event.speakers.length > 0" max-width="100%">
               <a-speaker-dialog
@@ -75,6 +75,16 @@
               <v-list v-if="event.sponsor" max-width="100%">
                 <a-sponsor-dialog :sponsor="event.sponsor" />
               </v-list>
+            </div>
+            <div v-if="reviews.length > 0">
+              <h3 class="heading">
+                Comments:
+              </h3>
+              <ul>
+                <li v-for="(review, i) in reviews" :key="i">
+                  <em>"{{ review }}"</em>
+                </li>
+              </ul>
             </div>
           </v-col>
         </v-row>
@@ -129,10 +139,13 @@
         linkedin: mdiLinkedinBox,
         speaker: mdiAccountOutline
       },
-      reviews: [],
       showDialog: false
     }),
     computed: {
+      reviews () {
+        const reviews = this.$store.getters['reviews/find']({ query: { event: this.event._id } })
+        return reviews.data.map(r => r.text).filter(r => r)
+      },
       trackColor () {
         switch (this.event.track) {
           case 'Business Impact of Technology': return { color: 'var(--v-biot-base)' }
@@ -146,13 +159,6 @@
       if (this.event.description) {
         this.excerpt = this.event.description.replace(/<\/?[^>]+(>|$)/g, '')
       }
-      this.$store.dispatch('reviews/find', { query: { $limit: '-1', event: this.event._id } }).then(
-        function (result) {
-          this.reviews = result.data
-        }.bind(this)
-      ).catch(function (error) {
-        console.log(error)
-      })
     },
     methods: {
       getIconColor (event) {

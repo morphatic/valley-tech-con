@@ -61,8 +61,8 @@
               <v-list v-if="event.sponsor" max-width="100%">
                 <a-sponsor-dialog :sponsor="event.sponsor" />
               </v-list>
+              <the-reviews-widget :event="event" />
             </v-card-text>
-            <the-reviews-widget :ratings="getRatings(event)" />
             <the-rating-dialog :event="event" />
             <the-tweet-button :hashtag="[event.hashtag, event.name]" />
           </v-card>
@@ -82,6 +82,7 @@
     mdiHumanGreeting,
     mdiGlassMugVariant
   } from '@mdi/js'
+  import { EventBus } from '@/bus'
   import AnEventDialog from '@/components/AnEventDialog'
   import ASpeakerDialog from '@/components/ASpeakerDialog'
   import ASponsorDialog from '@/components/ASponsorDialog'
@@ -99,6 +100,7 @@
       TheTweetButton
     },
     data: () => ({
+      bus: EventBus,
       events: [],
       icons: {
         morning: mdiWeatherSunny,
@@ -117,6 +119,10 @@
     created () {
       const { Event } = this.$FeathersVuex.api
       this.events = Event.findInStore({ query: { $limit: 50, $sort: { start: 1, room: 1 } } }).data
+      // this.bus.$on('goToNow', () => {
+      //   const now = new Date()
+
+      // })
     },
     methods: {
       getIcon (event) {
@@ -144,10 +150,6 @@
           }
         }
         return 'primary'
-      },
-      async getRatings (event) {
-        const reviews = await this.$store.dispatch('reviews/find', { query: { $limit: '-1', event: event._id } })
-        return reviews.data
       },
       getTime (event) {
         const start = (event.start instanceof Date && event.start) || new Date(event.start)

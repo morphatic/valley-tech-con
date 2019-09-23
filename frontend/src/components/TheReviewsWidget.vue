@@ -19,14 +19,9 @@
   export default {
     name: 'TheReviewsWidget',
     props: {
-      ratings: {
-        type: Array,
-        default: () => []
-      }
-    },
-    data () {
-      return {
-        rates: this.ratings
+      event: {
+        type: Object,
+        default: () => ({})
       }
     },
     computed: {
@@ -35,15 +30,14 @@
         const av = this.rates.reduce((avg, r) => avg + (r / len), 0)
         return +av.toFixed(2)
       },
+      rates () {
+        const reviews = this.$store.getters['reviews/find']({ query: { event: this.event._id } })
+        return reviews.data.map(r => r.rating)
+      },
       summary () {
         const len = this.rates.length
         const label = len === 1 ? 'rating' : 'ratings'
         return `(${this.avg}, ${len} ${label})`
-      }
-    },
-    watch: {
-      ratings (val) {
-        this.rates = val
       }
     }
   }

@@ -23,12 +23,12 @@
     <v-card>
       <v-card-title class="secondary white--text">
         <h1 class="headline">
-          Rate This Talk
+          Rate This Event
         </h1>
       </v-card-title>
       <v-card-text class="pt-4">
         <p>
-          Thank you for your review! You are reviewing:
+          You are reviewing:
           <strong>{{ event.name }}</strong>.
         </p>
         <v-form ref="review-form" v-model="valid">
@@ -62,6 +62,9 @@
             validate-on-blur
           />
         </v-form>
+        <p>
+          Thank you for your review! Note, comments will be visible publicly. Be nice! 😄
+        </p>
       </v-card-text>
       <v-divider />
       <v-card-actions class="pa-4">

@@ -18,7 +18,7 @@ const initialState = {
   destination: null,
   email: null,
   navDrawerIsMini: false,
-  navDrawerIsOpen: true
+  navDrawerIsOpen: false
 }
 
 const state = { ...initialState }
