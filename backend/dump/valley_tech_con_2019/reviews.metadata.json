@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":2,"key":{"_id":1},"name":"_id_","ns":"valley_tech_con_2019.reviews"},{"v":2,"unique":true,"key":{"event":1,"email":1},"name":"event_1_email_1","ns":"valley_tech_con_2019.reviews","background":true}],"uuid":"fb97656f0ff94d4bbc51705b93eed3a7"}
