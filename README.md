@@ -6,7 +6,7 @@ This repo contains the code for an app designed to demonstrate the "offline firs
 
 This app essentially mirrors the content of [the official conference website](https://valleytechcon.com). Users will have access to the conference schedule and info about the talks, speakers, and sponsors. In addition, the app allows users to rate each event and/or tweet about it easily. If you'd like to see it live it can be accessed/installed at [**https://vtc.morphatic.com**](https://vtc.morphatic.com).
 
-![Valley Tech Con 2019](/frontend/public/img/splash.png?s=450)
+![Valley Tech Con 2019](/frontend/public/img/splash.png? | width=450)
 
 The app is broken up into a backend API and a frontend SPA/PWA website. The backend is built with [FeathersJS](https://feathersjs.com), and the frontend is built with [VueJS](https://vuejs.org), [Vuetify](https://vuetifyjs.com), and makes heavy use of [`feathers-vuex`](https://feathers-vuex.feathers-plus.com).
 
