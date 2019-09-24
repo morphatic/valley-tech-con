@@ -38,11 +38,14 @@
         Silver <span class="secondary--text">Sponsors</span>
       </h3>
       <v-divider />
-      <v-row justify="space-around" class="my-8">
+      <v-row class="my-8" :justify="justify">
         <v-col
           v-for="sponsor in silver"
           :key="sponsor._id"
-          cols="4"
+          cols="6"
+          offset="3"
+          md="4"
+          offset-md="0"
         >
           <a-sponsor-dialog :sponsor="sponsor" hide-lead />
         </v-col>
@@ -51,11 +54,14 @@
         Bronze <span class="secondary--text">Sponsors</span>
       </h3>
       <v-divider />
-      <v-row justify="space-around" class="my-8">
+      <v-row class="my-8" :justify="justify">
         <v-col
           v-for="sponsor in bronze"
           :key="sponsor._id"
-          cols="2"
+          cols="6"
+          offset="3"
+          md="2"
+          offset-md="0"
         >
           <a-sponsor-dialog :sponsor="sponsor" hide-lead />
         </v-col>
@@ -68,8 +74,11 @@
         <v-col
           v-for="sponsor in vendors"
           :key="sponsor._id"
-          class="px-12"
-          cols="4"
+          :class="justify && 'px-12'"
+          cols="6"
+          offset="3"
+          md="4"
+          offset-md="0"
         >
           <a-sponsor-dialog :sponsor="sponsor" hide-lead />
         </v-col>
@@ -92,6 +101,11 @@
       silver: null,
       vendors: null
     }),
+    computed: {
+      justify () {
+        return ['xs', 'sm'].includes(this.$vuetify.breakpoint.name) ? undefined : 'space-around'
+      }
+    },
     created () {
       const sponsors = this.$store.getters['sponsors/find']
       this.platinum = sponsors({ query: { level: 'Platinum' } }).data
