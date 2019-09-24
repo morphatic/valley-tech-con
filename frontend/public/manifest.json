@@ -11,10 +11,15 @@
       "src": "./img/icons/android-chrome-256x256.png",
       "sizes": "256x256",
       "type": "image/png"
+    },
+    {
+      "src": "./img/splash.png",
+      "sizes": "881x1067",
+      "type": "image/png"
     }
   ],
-  "start_url": "./index.html",
+  "start_url": "/index.html",
   "display": "standalone",
-  "background_color": "#ffffff",
+  "background_color": "rgba(231,237,249,1)",
   "theme_color": "#39b54a"
 }

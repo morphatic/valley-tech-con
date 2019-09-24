@@ -45,9 +45,12 @@
         @click.stop="toggleNavDrawerOpen"
       />
       <v-toolbar-title class="white--text text-uppercase hidden-sm-and-down" style="font-size:2rem">
-        <span class="font-weight-light">Valley</span>
-        <span class="font-weight-black">Tech</span>
-        <span class="font-weight-light">Con.19</span>
+        <img
+          alt="Valley Tech Con 2019"
+          class="mt-3"
+          height="32"
+          src="@/assets/vtc-logo-wide.svg"
+        >
       </v-toolbar-title>
       <v-toolbar-title class="headline text-uppercase hidden-md-and-up">
         <img
@@ -151,3 +154,9 @@
     }
   }
 </script>
+
+<style lang="sass">
+.v-content
+  background: linear-gradient(to bottom, rgba(255,255,255,1) 66%,rgba(231,237,249,1) 100%)
+  background-attachment: fixed
+</style>
