@@ -89,12 +89,8 @@
 </template>
 
 <script>
-  import AnEventDialog from '@/components/AnEventDialog'
   export default {
     name: 'ASponsorDialog',
-    components: {
-      'an-event-dialog': AnEventDialog
-    },
     props: {
       sponsor: {
         type: Object,

@@ -86,7 +86,6 @@
     mdiGlassMugVariant
   } from '@mdi/js'
   import { EventBus } from '@/bus'
-  import AnEventDialog from '@/components/AnEventDialog'
   import ASpeakerDialog from '@/components/ASpeakerDialog'
   import ASponsorDialog from '@/components/ASponsorDialog'
   import TheRatingDialog from '@/components/TheRatingDialog'
@@ -95,7 +94,6 @@
   export default {
     name: 'TheAgendaPage',
     components: {
-      AnEventDialog,
       ASpeakerDialog,
       ASponsorDialog,
       TheRatingDialog,
