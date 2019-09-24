@@ -1,9 +1,12 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <h2 class="display-1 primary--text">
+      <h2 class="display-1 primary--text mb-6">
         Agenda
       </h2>
+      <p>
+        Scroll down to get details on all of the day's events. Click on a sponsor, speaker, or event description to get more details. To provide feedback or tweet about any of the events below, click the ⭐️ or Twitter symbol in the upper-right of that event.
+      </p>
     </v-col>
     <v-col class="mb-8" cols="12">
       <v-timeline :dense="dense">

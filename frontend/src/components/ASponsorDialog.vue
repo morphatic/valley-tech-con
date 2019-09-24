@@ -10,10 +10,13 @@
         v-on="on"
       >
         <v-list-item-content>
-          <v-list-item-subtitle>Sponsored by:</v-list-item-subtitle>
+          <v-list-item-subtitle v-if="!hideLead">
+            Sponsored by:
+          </v-list-item-subtitle>
           <v-list-item-subtitle>
             <v-img
               :alt="`${sponsor.name}`"
+              contain
               :src="sponsor.logo"
             />
           </v-list-item-subtitle>
@@ -97,6 +100,10 @@
         type: Object,
         default: () => ({}),
         required: true
+      },
+      hideLead: {
+        type: Boolean,
+        default: false
       }
     },
     data: () => ({

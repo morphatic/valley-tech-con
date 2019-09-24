@@ -16,17 +16,20 @@
         v-on="on"
       >
         <v-icon color="warning" size="28px">
-          mdi-star
+          {{ icons.star }}
         </v-icon>
       </v-btn>
     </template>
     <v-card>
-      <v-card-title class="secondary white--text">
+      <v-card-title class="secondary white--text mb-4">
         <h1 class="headline">
           Rate This Event
         </h1>
       </v-card-title>
-      <v-card-text class="pt-4">
+      <v-card-text v-if="premature">
+        We love your enthusiasm! But you can't rate an event until it has actually happened. 😄
+      </v-card-text>
+      <v-card-text v-else>
         <p>
           You are reviewing:
           <strong>{{ event.name }}</strong>.
@@ -76,6 +79,7 @@
         </v-btn>
         <v-spacer />
         <v-btn
+          v-if="!premature"
           text
           color="primary"
           @click="submit"
@@ -88,6 +92,7 @@
 </template>
 
 <script>
+  import { mdiStar } from '@mdi/js'
   export default {
     name: 'TheRatingDialog',
     props: {
@@ -99,6 +104,9 @@
     },
     data () {
       return {
+        icons: {
+          star: mdiStar
+        },
         review: {
           email: null,
           event: this.event._id,
@@ -109,12 +117,18 @@
         valid: true
       }
     },
+    computed: {
+      premature () {
+        const now = new Date()
+        return now < this.event.start
+      }
+    },
     mounted () {
       this.review.email = this.$store.state.common.email
     },
     methods: {
       cancel () {
-        this.reset()
+        !this.premature && this.reset()
         this.showDialog = false
       },
       isEmail (val) {

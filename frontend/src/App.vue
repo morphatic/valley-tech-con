@@ -4,7 +4,7 @@
       app
       clipped
       :mini-variant="navDrawerIsMini"
-      :value="navDrawerIsOpen"
+      :value="navDrawerIsOpen || false"
     >
       <v-col class="fill-height">
         <v-list>
@@ -14,9 +14,9 @@
             text="Home"
           />
           <a-menu-item
-            to="/about"
-            :icon="icons.about"
-            text="About"
+            to="/sponsors"
+            :icon="icons.sponsor"
+            text="Sponsors"
           />
           <a-menu-item
             to="/agenda"
@@ -28,6 +28,7 @@
             icon
             color="primary"
             class="mt-2 ml-2 unfocusable"
+            name="collapse navigation drawer button"
             @click="toggleNavDrawerMini"
           >
             <v-icon>{{ navDrawerIsMini ? icons.right : icons.left }}</v-icon>
@@ -42,6 +43,8 @@
       style="z-index:20;"
     >
       <v-app-bar-nav-icon
+        name="toggle navigation drawer button"
+        class="unfocusable"
         @click.stop="toggleNavDrawerOpen"
       />
       <v-toolbar-title class="white--text text-uppercase hidden-sm-and-down" style="font-size:2rem">
@@ -60,19 +63,9 @@
           src="@/assets/vtc-logo.svg"
         >
       </v-toolbar-title>
-      <v-spacer />
-      <v-btn
-        v-if="$route.path === '/agenda'"
-        icon
-        @click="bus.$emit('goToNow')"
-      >
-        <v-icon color="white">
-          {{ icons.now }}
-        </v-icon>
-      </v-btn>
     </v-app-bar>
     <v-content>
-      <v-container class="pr-6">
+      <v-container class="pa-6">
         <router-view />
       </v-container>
     </v-content>
@@ -113,9 +106,9 @@
     mdiChevronLeft,
     mdiChevronRight,
     mdiHome,
-    mdiInformation,
     mdiTimelineTextOutline,
-    mdiUpdate
+    mdiUpdate,
+    mdiMedal
   } from '@mdi/js'
   import { mapActions, mapGetters } from 'vuex'
   import AMenuItem from '@/components/AMenuItem'
@@ -128,7 +121,7 @@
     data: () => ({
       bus: EventBus,
       icons: {
-        about: mdiInformation,
+        sponsor: mdiMedal,
         agenda: mdiTimelineTextOutline,
         home: mdiHome,
         left: mdiChevronLeft,
