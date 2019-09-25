@@ -56,12 +56,13 @@ const waitForStorageToBeReady = async (to, from, next) => {
       const isOnline = VueOfflineStorage.get('is-online')
       // if we are online
       if (isOnline) {
+        EventBus.$emit('itemsLoaded', false)
         // for each of our key models, try to load any items missing from our store
         Promise.all(
           ['speakers', 'sponsors', 'events', 'reviews'].map(loadItems)
         ).then(() => {
           // then let the app know they're loaded
-          EventBus.$emit('itemsLoaded')
+          EventBus.$emit('itemsLoaded', true)
           // and continue
           next()
         })

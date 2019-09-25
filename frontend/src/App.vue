@@ -179,15 +179,10 @@
       this.$on('offline', function () {
         this.$offlineStorage.set('is-online', false)
       }.bind(this))
-      this.bus.$on('itemsLoaded', function () {
-        this.loading = false
+      this.bus.$on('itemsLoaded', function (status) {
+        this.loading = status
       }.bind(this))
     },
-    mounted () {
-      if (this.isOnline) {
-        this.loading = true
-      }
-    }
     methods: {
       ...mapActions('common', ['toggleNavDrawerMini', 'toggleNavDrawerOpen'])
     }
