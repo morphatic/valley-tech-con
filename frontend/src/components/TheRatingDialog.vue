@@ -11,7 +11,7 @@
         fab
         right
         x-small
-        style="transform: translate(32px, 3px);z-index:10"
+        style="transform: translate(32px, 3px);z-index:2"
         top
         v-on="on"
       >
@@ -38,7 +38,6 @@
           <v-input
             v-model="review.rating"
             :rules="[v => v > 0 || 'Please rate the talk!']"
-            validate-on-blur
           >
             <v-rating
               v-model="review.rating"
@@ -116,14 +115,13 @@
           text: ''
         },
         showDialog: false,
-        valid: true
+        valid: false
       }
     },
     computed: {
       premature () {
-        return false
-        // const now = new Date()
-        // return now < this.event.start
+        const now = new Date()
+        return now < this.event.start
       }
     },
     mounted () {
@@ -174,6 +172,8 @@
             reviews.push(clone)
             // then save the updated list in local storage
             this.$offlineStorage.set('reviews', reviews)
+            // then close the form
+            this.cancel()
           }
         }
       },

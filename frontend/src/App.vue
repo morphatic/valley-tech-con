@@ -1,10 +1,10 @@
 <template>
   <v-app>
     <v-navigation-drawer
+      v-model="drawer"
       app
       clipped
       :mini-variant="navDrawerIsMini"
-      :value="navDrawerIsOpen || false"
     >
       <v-col class="fill-height">
         <v-list>
@@ -39,14 +39,13 @@
     <v-app-bar
       app
       clipped-left
+      disable-route-watcher
       class="secondary"
       hide-on-scroll
-      style="z-index:20;"
     >
       <v-app-bar-nav-icon
         name="toggle navigation drawer button"
-        class="unfocusable"
-        @click.stop="toggleNavDrawerOpen"
+        @click="drawer = !drawer"
       />
       <v-toolbar-title class="white--text text-uppercase hidden-sm-and-down" style="font-size:2rem">
         <img
@@ -87,7 +86,7 @@
       app
       class="primary"
       inset
-      style="z-index:20;font-size:.8rem"
+      style="font-size:.8rem"
     >
       <span class="white--text mx-2">
         &copy; {{ copy }} Harrisonburg Economic Development, All Rights Reserved |
@@ -98,7 +97,6 @@
     <v-overlay
       :value="loading"
       opacity=".8"
-      style="z-index:100;"
     >
       <div style="text-align:center;">
         <v-progress-circular
@@ -137,6 +135,7 @@
     mixins: [VueOfflineMixin],
     data: () => ({
       bus: EventBus,
+      drawer: false,
       icons: {
         sponsor: mdiMedal,
         agenda: mdiTimelineTextOutline,
@@ -168,10 +167,8 @@
           // yes we have reviews, so try to send them to the API
           this.$store.dispatch('reviews/create', reviews).then(
             function (created) {
-              if (created.length === reviews.length) {
-                // they were all created, so reset the value in the store
-                this.$offlineStorage.set('reviews', [])
-              }
+              // they were all created, so reset the value in the store
+              this.$offlineStorage.set('reviews', [])
             }.bind(this)
           )
         }

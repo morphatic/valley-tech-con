@@ -6,7 +6,7 @@
     fab
     :href="link"
     right
-    style="transform:translate(32px, 43px);z-index:10;"
+    style="transform:translate(32px, 43px);z-index:2;"
     target="_blank"
     top
     x-small
