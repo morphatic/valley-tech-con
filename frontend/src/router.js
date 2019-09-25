@@ -55,7 +55,7 @@ const waitForStorageToBeReady = async (to, from, next) => {
       // start by assuming we're online
       let isOnline = true
       // check to see if the "is-online" key has been set
-      if (VueOfflineStorage.keys.includes('is-online')) {
+      if (VueOfflineStorage.keys && VueOfflineStorage.keys.includes('is-online')) {
         // get our online status
         isOnline = VueOfflineStorage.get('is-online')
       }
