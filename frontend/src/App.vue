@@ -147,7 +147,7 @@
         now: mdiUpdate,
         right: mdiChevronRight
       },
-      loading: true
+      loading: false
     }),
     computed: {
       ...mapGetters('common', ['navDrawerIsMini', 'navDrawerIsOpen']),
@@ -183,6 +183,11 @@
         this.loading = false
       }.bind(this))
     },
+    mounted () {
+      if (this.isOnline) {
+        this.loading = true
+      }
+    }
     methods: {
       ...mapActions('common', ['toggleNavDrawerMini', 'toggleNavDrawerOpen'])
     }
