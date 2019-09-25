@@ -52,8 +52,13 @@ const waitForStorageToBeReady = async (to, from, next) => {
   if (!store._vm.$root.$data['storageReady']) {
     // wait for that to happen
     store._vm.$root.$on('storageReady', async () => {
-      // get our online status
-      const isOnline = VueOfflineStorage.get('is-online')
+      // check to see if the "is-online" key has been set
+      const keys = VueOfflineStorage.keys()
+      let isOnline = true
+      if (keys.includes('is-online')) {
+        // get our online status
+        isOnline = VueOfflineStorage.get('is-online')
+      }
       // if we are online
       if (isOnline) {
         EventBus.$emit('itemsLoaded', false)
