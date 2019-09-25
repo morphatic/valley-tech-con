@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueAnalytics from 'vue-analytics'
+import VueOffline from 'vue-offline'
 import App from '@/App.vue'
 import router from '@/router'
 import { store } from '@/store'
@@ -12,6 +13,7 @@ Vue.use(VueAnalytics, {
   id: process.env.VUE_APP_GOOGLE_ANALYTICS_TRACKING_ID,
   router
 })
+Vue.use(VueOffline, { mixin: false, storage: true })
 Vue.component('an-event-dialog', AnEventDialog)
 
 new Vue({

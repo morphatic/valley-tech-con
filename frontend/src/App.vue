@@ -63,6 +63,19 @@
           src="@/assets/vtc-logo.svg"
         >
       </v-toolbar-title>
+      <v-spacer />
+      <v-icon
+        v-if="isOnline"
+        color="white"
+      >
+        {{ icons.online }}
+      </v-icon>
+      <v-icon
+        v-if="isOffline"
+        color="warning"
+      >
+        {{ icons.offline }}
+      </v-icon>
     </v-app-bar>
     <v-content>
       <v-container class="pa-6">
@@ -106,10 +119,13 @@
     mdiChevronLeft,
     mdiChevronRight,
     mdiHome,
+    mdiMedal,
     mdiTimelineTextOutline,
     mdiUpdate,
-    mdiMedal
+    mdiWifi,
+    mdiWifiOff
   } from '@mdi/js'
+  import { VueOfflineMixin } from 'vue-offline'
   import { mapActions, mapGetters } from 'vuex'
   import AMenuItem from '@/components/AMenuItem'
   import { EventBus } from '@/bus'
@@ -118,6 +134,7 @@
     components: {
       AMenuItem
     },
+    mixins: [VueOfflineMixin],
     data: () => ({
       bus: EventBus,
       icons: {
@@ -125,6 +142,8 @@
         agenda: mdiTimelineTextOutline,
         home: mdiHome,
         left: mdiChevronLeft,
+        offline: mdiWifiOff,
+        online: mdiWifi,
         now: mdiUpdate,
         right: mdiChevronRight
       },
@@ -138,6 +157,28 @@
       }
     },
     created () {
+      this.$on('online', function () {
+        // set the status in localstorage
+        this.$offlineStorage.set('is-online', true)
+        // check to see if we have any reviews to send
+        let reviews = this.$offlineStorage.get('reviews') || []
+        if (reviews.length > 0) {
+          // convert the reviews back into JSON
+          reviews = reviews.map(r => JSON.parse(r))
+          // yes we have reviews, so try to send them to the API
+          this.$store.dispatch('reviews/create', reviews).then(
+            function (created) {
+              if (created.length === reviews.length) {
+                // they were all created, so reset the value in the store
+                this.$offlineStorage.set('reviews', [])
+              }
+            }.bind(this)
+          )
+        }
+      }.bind(this))
+      this.$on('offline', function () {
+        this.$offlineStorage.set('is-online', false)
+      }.bind(this))
       this.bus.$on('itemsLoaded', function () {
         this.loading = false
       }.bind(this))

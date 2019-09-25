@@ -93,8 +93,10 @@
 
 <script>
   import { mdiStar } from '@mdi/js'
+  import { VueOfflineMixin } from 'vue-offline'
   export default {
     name: 'TheRatingDialog',
+    mixins: [VueOfflineMixin],
     props: {
       event: {
         type: Object,
@@ -145,20 +147,33 @@
           if (!this.$store.state.common.email) {
             this.$store.commit('common/SET_EMAIL', this.review.email, { root: true })
           }
-          // create a new review
-          const review = new Review(this.review)
-          // save the review
-          review.save().then(
-            function (success) {
-              // close the form
+          // are we online?
+          if (this.isOnline) {
+            // yes, create a new review
+            const review = new Review(this.review)
+            // save the review
+            review.save().then(
+              function (success) {
+                // close the form
+                this.cancel()
+              }.bind(this)
+            ).catch(function (error) {
+              if (error.name === 'Conflict') {
+                console.log('looks like you already filled this one out!')
+              }
               this.cancel()
-            }.bind(this)
-          ).catch(function (error) {
-            if (error.name === 'Conflict') {
-              console.log('looks like you already filled this one out!')
-            }
-            this.cancel()
-          }.bind(this))
+            }.bind(this))
+          } else {
+            // we are offline
+            // serialize the review
+            const clone = JSON.stringify(this.review)
+            // get any currently stored revies
+            const reviews = this.$offlineStorage.get('reviews') || []
+            // add the clone to the list
+            reviews.push(clone)
+            // then save the updated list in local storage
+            this.$offlineStorage.set('reviews', reviews)
+          }
         }
       },
       validate () {

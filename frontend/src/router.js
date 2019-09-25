@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { VueOfflineStorage } from 'vue-offline'
 import { store } from '@/store/'
 import TheHomePage from '@/components/TheHomePage'
 import TheAgendaPage from '@/components/TheAgendaPage'
@@ -51,14 +52,26 @@ const waitForStorageToBeReady = async (to, from, next) => {
   if (!store._vm.$root.$data['storageReady']) {
     // wait for that to happen
     store._vm.$root.$on('storageReady', async () => {
-      // for each of our key models
-      Promise.all(
-        ['speakers', 'sponsors', 'events', 'reviews'].map(loadItems)
-      ).then(() => {
+      // get our online status
+      const isOnline = VueOfflineStorage.get('is-online')
+      // if we are online
+      if (isOnline) {
+        // for each of our key models, try to load any items missing from our store
+        Promise.all(
+          ['speakers', 'sponsors', 'events', 'reviews'].map(loadItems)
+        ).then(() => {
+          // then let the app know they're loaded
+          EventBus.$emit('itemsLoaded')
+          // and continue
+          next()
+        })
+      } else {
+        // if we are offline
+        // just decide we've got all we're going to get
         EventBus.$emit('itemsLoaded')
-      })
-      // then continue...
-      next()
+        // and continue
+        next()
+      }
     })
   } else {
     next()
