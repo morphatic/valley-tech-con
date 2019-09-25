@@ -171,6 +171,9 @@
               this.$offlineStorage.set('reviews', [])
             }.bind(this)
           )
+          // and get any that we don't have locally
+          const ids = this.$store.state.reviews.ids
+          this.$store.dispatch('reviews/find', { query: { $limit: 50, _id: { $nin: ids } } })
         }
       }.bind(this))
       this.$on('offline', function () {
