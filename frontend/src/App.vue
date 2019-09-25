@@ -179,7 +179,7 @@
       this.$on('offline', function () {
         this.$offlineStorage.set('is-online', false)
       }.bind(this))
-      this.bus.$on('itemsLoaded', function (status) {
+      this.bus.$on('itemsLoading', function (status) {
         this.loading = status
       }.bind(this))
     },

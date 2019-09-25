@@ -61,20 +61,20 @@ const waitForStorageToBeReady = async (to, from, next) => {
       }
       // if we are online
       if (isOnline) {
-        EventBus.$emit('itemsLoaded', false)
+        EventBus.$emit('itemsLoading', true)
         // for each of our key models, try to load any items missing from our store
         Promise.all(
           ['speakers', 'sponsors', 'events', 'reviews'].map(loadItems)
         ).then(() => {
           // then let the app know they're loaded
-          EventBus.$emit('itemsLoaded', true)
+          EventBus.$emit('itemsLoading', false)
           // and continue
           next()
         })
       } else {
         // if we are offline
         // just decide we've got all we're going to get
-        EventBus.$emit('itemsLoaded')
+        EventBus.$emit('itemsLoading', false)
         // and continue
         next()
       }
