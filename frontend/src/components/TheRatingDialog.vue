@@ -121,8 +121,9 @@
     },
     computed: {
       premature () {
-        const now = new Date()
-        return now < this.event.start
+        return false
+        // const now = new Date()
+        // return now < this.event.start
       }
     },
     mounted () {

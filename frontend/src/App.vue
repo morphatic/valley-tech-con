@@ -40,6 +40,7 @@
       app
       clipped-left
       class="secondary"
+      hide-on-scroll
       style="z-index:20;"
     >
       <v-app-bar-nav-icon
@@ -85,9 +86,8 @@
     <v-footer
       app
       class="primary"
-      fixed
       inset
-      style="z-index:20;"
+      style="z-index:20;font-size:.8rem"
     >
       <span class="white--text mx-2">
         &copy; {{ copy }} Harrisonburg Economic Development, All Rights Reserved |
